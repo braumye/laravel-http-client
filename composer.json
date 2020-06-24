@@ -1,6 +1,8 @@
 {
     "name": "braumye/laravel-http-client",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "braumye",
