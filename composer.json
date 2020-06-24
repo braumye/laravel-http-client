@@ -1,0 +1,31 @@
+{
+    "name": "braumye/laravel-http-client",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "braumye",
+            "email": "braum.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "illuminate/support": "^5.5|^5.6|^5.7|^5.8|^6.0|^7.0",
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0|^7.0|^8.0|^9.0",
+        "orchestra/testbench": "^3.5|^3.6|^3.7|^3.8|^4.0|^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Braumye\\Illuminate\\Http\\Client\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Braumye\\Illuminate\\Tests\\Http\\": "tests/"
+        }
+    }
+}
