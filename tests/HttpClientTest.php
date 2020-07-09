@@ -250,7 +250,7 @@ class HttpClientTest extends TestCase
         $this->assertSame(200, $response->status());
 
         $response = $this->factory->get('https://example.com');
-        $this->assertSame('This is a story about something that happened long ago when your grandfather was a child.'.PHP_EOL, $response->body());
+        $this->assertSame("This is a story about something that happened long ago when your grandfather was a child.\n", $response->body());
         $this->assertSame(200, $response->status());
 
         $response = $this->factory->get('https://example.com');
@@ -392,6 +392,39 @@ class HttpClientTest extends TestCase
         $this->factory->assertSent(function (Request $request) {
             return $request->url() === 'http://foo.com/get?foo%3Bbar%3B%20space%20test=laravel'
                 && $request['foo;bar; space test'] === 'laravel';
+        });
+    }
+
+    public function testCanConfirmManyHeaders()
+    {
+        $this->factory->fake();
+
+        $this->factory->withHeaders([
+            'X-Test-Header' => 'foo',
+            'X-Test-ArrayHeader' => ['bar', 'baz'],
+        ])->post('http://foo.com/json');
+
+        $this->factory->assertSent(function (Request $request) {
+            return $request->url() === 'http://foo.com/json' &&
+                   $request->hasHeaders([
+                       'X-Test-Header' => 'foo',
+                       'X-Test-ArrayHeader' => ['bar', 'baz'],
+                   ]);
+        });
+    }
+
+    public function testCanConfirmManyHeadersUsingAString()
+    {
+        $this->factory->fake();
+
+        $this->factory->withHeaders([
+            'X-Test-Header' => 'foo',
+            'X-Test-ArrayHeader' => ['bar', 'baz'],
+        ])->post('http://foo.com/json');
+
+        $this->factory->assertSent(function (Request $request) {
+            return $request->url() === 'http://foo.com/json' &&
+                   $request->hasHeaders('X-Test-Header');
         });
     }
 }
