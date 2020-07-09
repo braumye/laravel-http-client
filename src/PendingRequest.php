@@ -582,10 +582,8 @@ class PendingRequest
     {
         $laravelData = $options[$this->bodyFormat] ?? $options['query'] ?? [];
 
-        $urlString = Str::of($url);
-
-        if (empty($laravelData) && $method === 'GET' && $urlString->contains('?')) {
-            $laravelData = (string) $urlString->after('?');
+        if (empty($laravelData) && $method === 'GET' && Str::contains($url, '?')) {
+            $laravelData = (string) Str::after($url, '?');
         }
 
         if (is_string($laravelData)) {
